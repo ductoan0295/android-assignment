@@ -1,0 +1,59 @@
+{
+  "animals": [
+    {
+      "name": "Ant",
+      "icon":  "ic_ant",
+      "background": "bg_ant"
+    },
+    {
+      "name": "Cat",
+      "icon":  "ic_cat",
+      "background": "bg_cat"
+    },
+    {
+      "name": "Dog",
+      "icon":  "ic_dog",
+      "background": "bg_dog"
+    },
+    {
+      "name": "Dolphin",
+      "icon":  "ic_dolphin",
+      "background": "bg_dolphin"
+    },
+    {
+      "name": "Eagle",
+      "icon":  "ic_eagle",
+      "background": "bg_eagle"
+    },
+    {
+      "name": "Elephant",
+      "icon":  "ic_elephant",
+      "background": "bg_elephant"
+    },
+    {
+      "name": "Hippo",
+      "icon":  "ic_hippo",
+      "background": "bg_hippo"
+    },
+    {
+      "name": "Jellyfish",
+      "icon":  "ic_jellyfish",
+      "background": "bg_jellyfish"
+    },
+    {
+      "name": "Owl",
+      "icon":  "ic_owl",
+      "background": "bg_owl"
+    },
+    {
+      "name": "Pigeon",
+      "icon":  "ic_pigeon",
+      "background": "bg_pigeon"
+    },
+    {
+      "name": "Tortoise",
+      "icon":  "ic_tortoise",
+      "background": "bg_tortoise"
+    }
+  ]
+}
