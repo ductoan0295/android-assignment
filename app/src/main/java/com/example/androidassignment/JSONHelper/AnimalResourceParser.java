@@ -19,8 +19,11 @@ public class AnimalResourceParser {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject animalObject = jsonArray.getJSONObject(i);
                 DrawableRetriever drawableRetriever = new DrawableRetriever();
+                String name = animalObject.getString("name");
                 int iconResourceID = drawableRetriever.getIDByName(animalObject.getString("icon"));
-                animals.add(new Animal(animalObject.getString("name"), iconResourceID, false));
+                int backgroundResourceID = drawableRetriever.getIDByName(animalObject.getString("background"));
+                String description = animalObject.getString("description");
+                animals.add(new Animal(name, iconResourceID, backgroundResourceID, description, false));
             }
         } catch (JSONException e) {
             return animals;

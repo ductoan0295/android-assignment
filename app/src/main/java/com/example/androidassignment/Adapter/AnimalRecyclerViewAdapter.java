@@ -3,73 +3,46 @@ package com.example.androidassignment.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidassignment.Model.Animal;
 import com.example.androidassignment.R;
+import com.example.androidassignment.ViewHolder.AnimalViewHolder;
 
 import java.util.ArrayList;
 
-public class AnimalRecyclerViewAdapter extends RecyclerView.Adapter<AnimalRecyclerViewAdapter.ViewHolder>{
-    private final ArrayList<Animal> animals;
-    protected animalListener animalListener;
+public class AnimalRecyclerViewAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
+    public static ArrayList<Animal> animals;
+    public static animalItemListener animalItemListener;
 
-    public AnimalRecyclerViewAdapter(ArrayList<Animal> animals, animalListener animalListener) {
-        this.animals = animals;
-        this.animalListener=animalListener;
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView imageView;
-        public CheckBox checkBox;
-        Animal animal;
-
-        public ViewHolder(View view) {
-            super(view);
-            view.setOnClickListener(this);
-            imageView = view.findViewById(R.id.animalImageView);
-            checkBox = view.findViewById(R.id.fav_toggle);
-        }
-
-        public void setData(Animal animal) {
-            this.animal = animal;
-            imageView.setImageResource(animal.drawable);
-            checkBox.setChecked(animal.isLiked);
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (animalListener != null) {
-                animalListener.onItemClick(animal);
-            }
-        }
+    public AnimalRecyclerViewAdapter(ArrayList<Animal> animals, animalItemListener animalItemListener) {
+        AnimalRecyclerViewAdapter.animals = animals;
+        this.animalItemListener = animalItemListener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public AnimalViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list animal
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.animal_item, viewGroup, false);
 
-        return new ViewHolder(view);
+        return new AnimalViewHolder(view, this);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        viewHolder.setData(this.animals.get(position));
+    public void onBindViewHolder(AnimalViewHolder animalViewHolder, int position) {
+        animalViewHolder.setData(animals.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return this.animals.size();
+        return animals.size();
     }
 
-    public interface animalListener {
-        void onItemClick(Animal animal);
+    public interface animalItemListener {
+        void onItemClick(Animal animal, View view);
     }
 }

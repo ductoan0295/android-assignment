@@ -6,28 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
-    android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
     android:layout_marginBottom="70dp">
+
     <ImageView
         android:id="@+id/animalImageView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/animal_item_description"
         android:scaleType="fitXY"
         android:src="@drawable/ic_dog"
-        android:contentDescription="@string/animal_item_description"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        />
+        app:layout_constraintWidth_percent="0.8" />
 
     <CheckBox
         android:id="@+id/fav_toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:button="@drawable/toggle_btn_favourite_24dp"
-        app:layout_constraintLeft_toRightOf="@id/animalImageView"
-        app:layout_constraintRight_toRightOf="parent"
+        app:buttonTint="@color/orange_700"
         app:layout_constraintBottom_toBottomOf="@id/animalImageView"
-        app:buttonTint="@color/orange_700"/>
+        app:layout_constraintLeft_toRightOf="@id/animalImageView"
+        app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
