@@ -19,7 +19,7 @@ public class AnimalRecyclerViewAdapter extends RecyclerView.Adapter<AnimalViewHo
 
     public AnimalRecyclerViewAdapter(ArrayList<Animal> animals, animalItemListener animalItemListener) {
         AnimalRecyclerViewAdapter.animals = animals;
-        this.animalItemListener = animalItemListener;
+        AnimalRecyclerViewAdapter.animalItemListener = animalItemListener;
     }
 
     @NonNull
@@ -43,6 +43,6 @@ public class AnimalRecyclerViewAdapter extends RecyclerView.Adapter<AnimalViewHo
     }
 
     public interface animalItemListener {
-        void onItemClick(Animal animal, View view);
+        void onItemClick(Animal animal);
     }
 }

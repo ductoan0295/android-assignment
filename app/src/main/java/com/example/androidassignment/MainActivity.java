@@ -2,7 +2,6 @@ package com.example.androidassignment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -17,23 +16,20 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AnimalRecyclerViewAdapter.animalItemListener {
     private static AnimalRecyclerViewAdapter adapter;
-    private static RecyclerView animalView;
-    private static GridLayoutManager manager;
-    private static Animal viewingAnimal;
+    private static int viewingAnimalIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        animalView = findViewById(R.id.animalView);
+        RecyclerView animalView = findViewById(R.id.animalView);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null && bundle.getBoolean("isLikedStatusChanged")) {
-            int index = AnimalRecyclerViewAdapter.animals.indexOf(viewingAnimal);
+            Animal viewingAnimal = AnimalRecyclerViewAdapter.animals.get(viewingAnimalIndex);
             viewingAnimal.isLiked = !viewingAnimal.isLiked;
-            AnimalRecyclerViewAdapter.animals.set(index, viewingAnimal);
-            viewingAnimal = null;
+            AnimalRecyclerViewAdapter.animals.set(viewingAnimalIndex, viewingAnimal);
         } else if (adapter == null) {
             AnimalResourceParser animalResourceParser = new AnimalResourceParser();
             JSONReader jsonReader = new JSONReader();
@@ -42,17 +38,27 @@ public class MainActivity extends AppCompatActivity implements AnimalRecyclerVie
             adapter = new AnimalRecyclerViewAdapter(animals, this);
         }
         animalView.setAdapter(adapter);
-        manager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        GridLayoutManager manager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         animalView.setLayoutManager(manager);
     }
 
     @Override
-    public void onItemClick(Animal animal, View view) {
+    public void onItemClick(Animal animal) {
+        goToDetailActivity(animal);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Animal viewingAnimal = AnimalRecyclerViewAdapter.animals.get(viewingAnimalIndex);
+        goToDetailActivity(viewingAnimal);
+    }
+
+    private void goToDetailActivity(Animal animal) {
         Intent intent = new Intent(this, DetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("animal", animal);
         intent.putExtras(bundle);
-        viewingAnimal = animal;
+        viewingAnimalIndex = AnimalRecyclerViewAdapter.animals.indexOf(animal);
         startActivity(intent);
     }
 }

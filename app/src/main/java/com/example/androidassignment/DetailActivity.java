@@ -46,22 +46,30 @@ public class DetailActivity extends AppCompatActivity implements AnimalFavourite
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent intent = new Intent(this, MainActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("isLikedStatusChanged", isLikedStatusChanged);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                overridePendingTransition(R.anim.activity_slide_in_left, R.anim.activity_slide_out_right);
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            goToMainActivity();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        goToMainActivity();
     }
 
     @Override
     public void onFavouriteToggleClicked(View view) {
         CheckBox favToggle = (CheckBox) view;
         isLikedStatusChanged = favToggle.isChecked() != animal.isLiked;
+    }
+
+    private void goToMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isLikedStatusChanged", isLikedStatusChanged);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        overridePendingTransition(R.anim.activity_slide_in_left, R.anim.activity_slide_out_right);
     }
 }

@@ -33,18 +33,18 @@ public class AnimalViewHolder extends RecyclerView.ViewHolder implements View.On
         favToggle.setOnClickListener(view -> {
             CheckBox favToggle = (CheckBox) view;
             animal.isLiked = favToggle.isChecked();
-            int index = adapter.animals.indexOf(animal);
-            adapter.animals.set(index, animal);
+            int index = AnimalRecyclerViewAdapter.animals.indexOf(animal);
+            AnimalRecyclerViewAdapter.animals.set(index, animal);
             adapter.notifyItemChanged(index, animal);
         });
     }
 
     @Override
     public void onClick(View view) {
-        if (adapter.animalItemListener != null) {
+        if (AnimalRecyclerViewAdapter.animalItemListener != null) {
             Animation animalAlphaAnimation = AnimationUtils.loadAnimation(view.getContext(), R.anim.animal_item);
             imageView.startAnimation(animalAlphaAnimation);
-            adapter.animalItemListener.onItemClick(animal, view);
+            AnimalRecyclerViewAdapter.animalItemListener.onItemClick(animal);
         }
     }
 }
