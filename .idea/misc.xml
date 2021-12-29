@@ -14,6 +14,8 @@
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.4452274536634958" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/animal_item.xml" value="0.24976961319573016" />
+        <entry key="app/src/main/res/layout/simple_toolbar.xml" value="0.20677083333333332" />
+        <entry key="app/src/main/res/layout/toolbar.xml" value="0.24365942028985507" />
       </map>
     </option>
   </component>

@@ -1,8 +1,11 @@
 package com.example.androidassignment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,29 +20,29 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements AnimalRecyclerViewAdapter.animalItemListener {
     private static AnimalRecyclerViewAdapter adapter;
     private static int viewingAnimalIndex;
+    private static ActivityResultLauncher<Intent> activityResultLauncher;
+    private static RecyclerView animalView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView animalView = findViewById(R.id.animalView);
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Animal viewingAnimal = AnimalRecyclerViewAdapter.animals.get(viewingAnimalIndex);
+                        viewingAnimal.isLiked = !viewingAnimal.isLiked;
+                        AnimalRecyclerViewAdapter.animals.set(viewingAnimalIndex, viewingAnimal);
+                        updateDataLayout();
+                    }
+                });
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null && bundle.getBoolean("isLikedStatusChanged")) {
-            Animal viewingAnimal = AnimalRecyclerViewAdapter.animals.get(viewingAnimalIndex);
-            viewingAnimal.isLiked = !viewingAnimal.isLiked;
-            AnimalRecyclerViewAdapter.animals.set(viewingAnimalIndex, viewingAnimal);
-        } else if (adapter == null) {
-            AnimalResourceParser animalResourceParser = new AnimalResourceParser();
-            JSONReader jsonReader = new JSONReader();
-            String animalsJSON = jsonReader.getJSONStringFromInputStream(getResources().openRawResource(R.raw.animals));
-            ArrayList<Animal> animals = animalResourceParser.getAnimalsFromJSONString(animalsJSON);
-            adapter = new AnimalRecyclerViewAdapter(animals, this);
-        }
-        animalView.setAdapter(adapter);
-        GridLayoutManager manager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
-        animalView.setLayoutManager(manager);
+        animalView = findViewById(R.id.animalView);
+
+        setDataAdapter();
+        updateDataLayout();
     }
 
     @Override
@@ -47,10 +50,20 @@ public class MainActivity extends AppCompatActivity implements AnimalRecyclerVie
         goToDetailActivity(animal);
     }
 
-    @Override
-    public void onBackPressed() {
-        Animal viewingAnimal = AnimalRecyclerViewAdapter.animals.get(viewingAnimalIndex);
-        goToDetailActivity(viewingAnimal);
+    private void setDataAdapter() {
+        if (adapter == null) {
+            AnimalResourceParser animalResourceParser = new AnimalResourceParser();
+            JSONReader jsonReader = new JSONReader();
+            String animalsJSON = jsonReader.getJSONStringFromInputStream(getResources().openRawResource(R.raw.animals));
+            ArrayList<Animal> animals = animalResourceParser.getAnimalsFromJSONString(animalsJSON);
+            adapter = new AnimalRecyclerViewAdapter(animals, this);
+        }
+    }
+
+    private void updateDataLayout() {
+        animalView.setAdapter(adapter);
+        GridLayoutManager manager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        animalView.setLayoutManager(manager);
     }
 
     private void goToDetailActivity(Animal animal) {
@@ -59,6 +72,6 @@ public class MainActivity extends AppCompatActivity implements AnimalRecyclerVie
         bundle.putParcelable("animal", animal);
         intent.putExtras(bundle);
         viewingAnimalIndex = AnimalRecyclerViewAdapter.animals.indexOf(animal);
-        startActivity(intent);
+        activityResultLauncher.launch(intent);
     }
 }
