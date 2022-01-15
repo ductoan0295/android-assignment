@@ -20,13 +20,15 @@ public class Animal implements Parcelable {
     public int background_drawable;
     public String description;
     public boolean isLiked;
+    public String type;
 
-    public Animal(String name, int icon_drawable, int background_drawable, String description, boolean isLiked) {
+    public Animal(String name, int icon_drawable, int background_drawable, String description, boolean isLiked, String type) {
         this.name = name;
         this.icon_drawable = icon_drawable;
         this.background_drawable = background_drawable;
         this.description = description;
         this.isLiked = isLiked;
+        this.type = type;
     }
 
     protected Animal(Parcel in) {

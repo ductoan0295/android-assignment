@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_mammal"
+            android:title="@null"
+            app:actionLayout="@layout/mammal_menu_item" />
+        <item
+            android:id="@+id/nav_ocean"
+            android:title="@null"
+            app:actionLayout="@layout/ocean_animal_menu_item" />
+        <item
+            android:id="@+id/nav_bird"
+            android:title="@null"
+            app:actionLayout="@layout/bird_menu_item" />
+    </group>
+</menu>

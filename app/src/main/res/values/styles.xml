@@ -17,4 +17,30 @@
         <item name="android:activityCloseEnterAnimation">@anim/activity_slide_in_left</item>
         <item name="android:activityCloseExitAnimation">@anim/activity_slide_out_right</item>
     </style>
+
+    <style name="MenuItemText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/orange_700</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="MenuItemBg">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:contentDescription">@string/app_name</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="MenuItemSeparator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/orange_200</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
 </resources>

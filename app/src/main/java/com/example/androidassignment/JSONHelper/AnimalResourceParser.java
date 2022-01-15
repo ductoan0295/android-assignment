@@ -9,10 +9,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AnimalResourceParser {
-    public ArrayList<Animal> getAnimalsFromJSONString(String jsonInput) {
-        ArrayList<Animal> animals = new ArrayList<>();
+    public List<Animal> getAnimalsFromJSONString(String jsonInput) {
+        List<Animal> animals = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(jsonInput);
             JSONArray jsonArray = jsonObject.getJSONArray("animals");
@@ -23,7 +24,8 @@ public class AnimalResourceParser {
                 int iconResourceID = drawableRetriever.getIDByName(animalObject.getString("icon"));
                 int backgroundResourceID = drawableRetriever.getIDByName(animalObject.getString("background"));
                 String description = animalObject.getString("description");
-                animals.add(new Animal(name, iconResourceID, backgroundResourceID, description, false));
+                String type = animalObject.getString("type");
+                animals.add(new Animal(name, iconResourceID, backgroundResourceID, description, false, type));
             }
         } catch (JSONException e) {
             return animals;

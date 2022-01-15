@@ -11,15 +11,15 @@ import com.example.androidassignment.Model.Animal;
 import com.example.androidassignment.R;
 import com.example.androidassignment.ViewHolder.AnimalViewHolder;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AnimalRecyclerViewAdapter extends RecyclerView.Adapter<AnimalViewHolder> {
-    public static ArrayList<Animal> animals;
-    public static animalItemListener animalItemListener;
+    public List<Animal> animals;
+    public animalItemListener animalItemListener;
 
-    public AnimalRecyclerViewAdapter(ArrayList<Animal> animals, animalItemListener animalItemListener) {
-        AnimalRecyclerViewAdapter.animals = animals;
-        AnimalRecyclerViewAdapter.animalItemListener = animalItemListener;
+    public AnimalRecyclerViewAdapter(List<Animal> animals, animalItemListener animalItemListener) {
+        this.animals = animals;
+        this.animalItemListener = animalItemListener;
     }
 
     @NonNull
@@ -40,6 +40,11 @@ public class AnimalRecyclerViewAdapter extends RecyclerView.Adapter<AnimalViewHo
     @Override
     public int getItemCount() {
         return animals.size();
+    }
+
+    public void updateAnimalList(List<Animal> animals) {
+        this.animals = animals;
+        this.notifyDataSetChanged();
     }
 
     public interface animalItemListener {
