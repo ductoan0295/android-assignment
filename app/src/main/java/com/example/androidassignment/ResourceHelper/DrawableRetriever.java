@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 public class DrawableRetriever {
     public int getIDByName(String drawableName) {
         try {
-            Class res = R.drawable.class;
+            Class<R.drawable> res = R.drawable.class;
             Field field = res.getField(drawableName);
             return field.getInt(null);
         } catch (Exception e) {

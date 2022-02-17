@@ -36,7 +36,6 @@ public class AnimalFragment extends Fragment implements AnimalRecyclerViewAdapte
         adapter = new AnimalRecyclerViewAdapter(animalViewModel.getAnimals(), this);
         animalView.setAdapter(adapter);
 
-
         return binding.getRoot();
     }
 

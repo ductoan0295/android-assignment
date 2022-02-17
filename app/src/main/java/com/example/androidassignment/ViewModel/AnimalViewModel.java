@@ -41,7 +41,16 @@ public class AnimalViewModel extends ViewModel {
         return this.viewingAnimalIndex;
     }
 
+
     public void setViewingAnimalIndex(Animal animal) {
         this.viewingAnimalIndex = animals.indexOf(animal);
+    }
+
+    public void setViewingAnimalIndexByPagerPosition(int position) {
+        this.viewingAnimalIndex = position;
+    }
+
+    public void setViewingAnimalLikedStatus() {
+        this.animals.get(this.viewingAnimalIndex).isLiked = !this.animals.get(this.viewingAnimalIndex).isLiked;
     }
 }

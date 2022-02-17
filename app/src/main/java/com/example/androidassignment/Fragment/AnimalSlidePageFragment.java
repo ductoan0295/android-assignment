@@ -4,35 +4,51 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidassignment.Model.Animal;
-import com.example.androidassignment.R;
+import com.example.androidassignment.ViewModel.AnimalViewModel;
+import com.example.androidassignment.databinding.DetailItemBinding;
 
 public class AnimalSlidePageFragment extends Fragment {
     private static Animal animal;
+    private AnimalViewModel animalViewModel;
+    private DetailItemBinding binding;
+    private ImageView backgroundImageView;
+    private TextView animalNameTextView;
+    private CheckBox likeToggleButton;
+    private TextView descriptionTextView;
 
     public AnimalSlidePageFragment(Animal animal) {
         AnimalSlidePageFragment.animal = animal;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(
-                R.layout.detail_item, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DetailItemBinding.inflate(inflater, container, false);
+        animalViewModel = new ViewModelProvider(requireActivity()).get(AnimalViewModel.class);
 
-        ImageView backgroundImageView = view.findViewById(R.id.animalImageView);
-        TextView animalNameTextView = view.findViewById(R.id.animalNameTextView);
-        // CheckBox likeToggleButton = view.findViewById(R.id.fav_toggle);
-        TextView descriptionTextView = view.findViewById(R.id.animalDescription);
+        this.backgroundImageView = binding.animalImageView;
+        this.animalNameTextView = binding.animalNameTextView;
+        this.likeToggleButton = binding.favToggle;
+        this.descriptionTextView = binding.animalDescription;
 
-        backgroundImageView.setImageResource(animal.background_drawable);
-        animalNameTextView.setText(animal.name);
-        // likeToggleButton.setChecked(animal.isLiked);
-        descriptionTextView.setText(animal.description);
-        return view;
+        this.likeToggleButton.setOnClickListener(view -> this.onFavouriteToggleClicked());
+
+        this.backgroundImageView.setImageResource(animal.background_drawable);
+        this.animalNameTextView.setText(animal.name);
+        this.likeToggleButton.setChecked(animal.isLiked);
+        this.descriptionTextView.setText(animal.description);
+        return binding.getRoot();
+    }
+
+    public void onFavouriteToggleClicked() {
+        animalViewModel.setViewingAnimalLikedStatus();
     }
 }

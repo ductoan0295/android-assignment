@@ -29,14 +29,18 @@ public class AnimalViewHolder extends RecyclerView.ViewHolder implements View.On
     public void setData(Animal animal) {
         this.animal = animal;
         imageView.setImageResource(animal.icon_drawable);
-        favToggle.setChecked(animal.isLiked);
-        favToggle.setOnClickListener(view -> {
-            CheckBox favToggle = (CheckBox) view;
-            animal.isLiked = favToggle.isChecked();
-            int index = adapter.animals.indexOf(animal);
-            adapter.animals.set(index, animal);
-            adapter.notifyItemChanged(index, animal);
-        });
+        if (animal.isLiked) {
+            favToggle.setChecked(true);
+            favToggle.setOnClickListener(view -> {
+                CheckBox favToggle = (CheckBox) view;
+                animal.isLiked = favToggle.isChecked();
+                int index = adapter.animals.indexOf(animal);
+                adapter.animals.set(index, animal);
+                adapter.notifyItemChanged(index, animal);
+            });
+        } else {
+            favToggle.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

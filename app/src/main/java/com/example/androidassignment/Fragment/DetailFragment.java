@@ -12,11 +12,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.androidassignment.Adapter.AnimalSlidePagerAdapter;
-import com.example.androidassignment.Component.AnimalFavouriteToggle;
 import com.example.androidassignment.ViewModel.AnimalViewModel;
 import com.example.androidassignment.databinding.FragmentDetailBinding;
 
-public class DetailFragment extends Fragment implements AnimalFavouriteToggle.animalFavoriteToggleListener {
+public class DetailFragment extends Fragment {
     private AnimalViewModel animalViewModel;
     private FragmentDetailBinding binding;
     private ViewPager2 viewPager;
@@ -29,6 +28,12 @@ public class DetailFragment extends Fragment implements AnimalFavouriteToggle.an
 
         pagerAdapter = new AnimalSlidePagerAdapter(this, animalViewModel.getAnimals());
         viewPager.setAdapter(pagerAdapter);
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                animalViewModel.setViewingAnimalIndexByPagerPosition(position);
+            }
+        });
         viewPager.setCurrentItem(animalViewModel.getViewingAnimalIndex());
 
         return binding.getRoot();
@@ -38,11 +43,5 @@ public class DetailFragment extends Fragment implements AnimalFavouriteToggle.an
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-
-    @Override
-    public void onFavouriteToggleClicked(View view) {
-
     }
 }
