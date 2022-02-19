@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_animal">
         <action
             android:id="@+id/action_nav_animal_to_nav_detail"
-            app:destination="@id/nav_detail" />
+            app:destination="@id/nav_detail"
+            app:enterAnim="@anim/activity_slide_in_right"
+            app:exitAnim="@anim/activity_slide_out_left"
+            app:popEnterAnim="@anim/activity_slide_in_left"
+            app:popExitAnim="@anim/activity_slide_out_right" />
     </fragment>
 
     <fragment
