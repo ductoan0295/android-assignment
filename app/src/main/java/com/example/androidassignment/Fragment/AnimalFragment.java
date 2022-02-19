@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,11 +26,11 @@ public class AnimalFragment extends Fragment implements AnimalRecyclerViewAdapte
     private NavController navController;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
+        binding = FragmentAnimalBinding.inflate(inflater, container, false);
+        navController = NavHostFragment.findNavController(this);
+
         animalViewModel = new ViewModelProvider(requireActivity()).get(AnimalViewModel.class);
         animalViewModel.getAnimalLiveData().observe(getViewLifecycleOwner(), animals -> adapter.updateAnimalList(animals));
-
-        binding = FragmentAnimalBinding.inflate(inflater, container, false);
         RecyclerView animalView = binding.animalView;
         animalView.setLayoutManager(new GridLayoutManager(this.getActivity(), 3, GridLayoutManager.VERTICAL, false));
         adapter = new AnimalRecyclerViewAdapter(animalViewModel.getAnimals(), this);

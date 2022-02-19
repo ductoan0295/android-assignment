@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                     animalViewModel.setAnimals(animals);
                     break;
             }
-            navController.navigate(R.id.action_nav_home_to_nav_animal);
             drawer.closeDrawer(GravityCompat.START);
             return true;
         });
